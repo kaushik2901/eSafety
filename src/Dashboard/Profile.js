@@ -13,9 +13,6 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
 import CardContent from '@material-ui/core/CardContent';
 
-import { url, setCookie, getCookie } from "../constants";
-
-
 
 const styles = theme => ({
     wrapper: {
@@ -54,28 +51,7 @@ class Profile extends Component {
     }
 
     componentWillMount() {
-        fetch(url + "getUserInfo/", {
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                    'auth': 'token ' + getCookie("roadGPortalAuth")
-                },
-                method: "GET",
-            }
-        )
-        .then(res => res.json())
-        .then(res => {
-            if(res.success){
-                this.setState({
-                    data: res.data
-                })
-            }else{
-                console.error(res);               
-            }
-        })
-        .catch(err => {                
-            this.handleDialogOpen(err.message, "Error")
-        });
+        
     }
 
     componentDidMount() {
@@ -163,13 +139,9 @@ class Profile extends Component {
                                 <Grid item xs>
                                     <Button color="primary">Save</Button>&nbsp;
                                     <Button color="secondary" onClick={ () => {
-                                        setCookie("roadGPortalAuth", {}, -1);
-                                        window.location.reload();
+                                        this.props.setLogout()
                                     } }>Logout</Button>
                                 </Grid>
-                                {/* <Grid item xs>
-                                    
-                                </Grid> */}
                             </Grid>
                         </CardContent>
                     </Card>

@@ -5,8 +5,8 @@ import { withStyles } from '@material-ui/core/styles';
 
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
 
-import logo from '../res/emblem.svg';
 
 const styles = theme => ({
     Card: {
@@ -41,7 +41,7 @@ let ForgotPasswordComponent = (props) => {
         <div className={classes.Card}>
             {/* <CardContent> */}
                 <div className={classes.logoWrapper}>
-                    <img src={logo} className={classes.logo} alt="Road and Building" />
+                    <Typography variant="display1">E - Safety</Typography>
                 </div>
                 <div>
                     <TextField

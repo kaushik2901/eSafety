@@ -6,9 +6,6 @@ import { withStyles } from '@material-ui/core/styles';
 import LoginComponent from '../Components/LoginComponent';
 import ForgotPasswordComponent from '../Components/ForgotPasswordComponent';
 
-import { url } from "../constants";
-import GeneralDialog from '../Components/GeneralDialog';
-            
 
 const styles = theme => ({
     wrapper: {
@@ -58,34 +55,7 @@ class Login extends Component {
     };
 
     handleLogin = (phoneNo, password) => {
-        if(phoneNo && password && password.length >= 6 && password.length < 12) {
-            fetch(url + "login/", {
-                    headers: {
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json'
-                    },
-                    method: "POST",
-                    body: JSON.stringify({phoneNo:phoneNo, password:password})
-                }
-            )
-            .then(res => res.json())
-            .then(res => {
-                console.log(res);
-                if(res.success){
-                    this.setCookie("roadGPortalAuth", res.data, 1);
-                    this.props.setLogin();
-                }else{
-                    this.handleDialogOpen(res.data, "Error");
-                }
-            })
-            .catch(err => {
-                console.log(err);                
-                this.handleDialogOpen(err.message, "Error")
-            });
-            
-        } else {
-            alert("Password is required and it must be between 6 to 12 character")
-        }
+        this.props.setLogin();
     }
 
     render() {
@@ -94,15 +64,6 @@ class Login extends Component {
         return (
           <div className={classes.wrapper}>
             { this.state.loginTab ? <LoginComponent handleLogin={this.handleLogin} toForgotPassTab={this.toForgotPassTab} /> : <ForgotPasswordComponent toLoginTab={this.toLoginTab} /> }
-            <GeneralDialog 
-                openDialogState = {this.state.openDialog}
-                dialogTitle = {this.state.dialogTitle}
-                dialogMsg = {this.state.dialogMsg}  
-                handleClose={this.handleClose}
-                handleDialogOpen={this.handleDialogOpen}
-            >
-                {/* <Button>Hello</Button> */}
-            </GeneralDialog>
           </div>  
         );
     }
