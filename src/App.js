@@ -8,7 +8,7 @@ class App extends Component {
 
   //state of root app
   state = {
-    isLoggedIn: false
+    isLoggedIn: true
   }
 
   setLogin = () => {
